@@ -22,15 +22,15 @@ document.addEventListener('DOMContentLoaded', function() {
             submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
             submitBtn.disabled = true;
             
-            // Prepare template parameters
+            // Update templateParams to match your template variables
             const templateParams = {
-            to_name: 'Nur Nabihah',      // For personalizing template
-            from_name: name,             // Will appear as {{from_name}}
-            from_email: email,           // Will appear as {{from_email}}
-            message: message,            // Will appear as {{message}}
-            reply_to: email,             // Will appear as {{reply_to}}
-            date: new Date().toLocaleString() // Will appear as {{date}}
-        };
+                name: name,                    // For {{name}} at the top of template
+                from_name: name,               // For {{from_name}} in structured section
+                from_email: email,             // For {{from_email}}
+                message: message,              // For {{message}}
+                reply_to: email,               // For {{reply_to}}
+                date: new Date().toLocaleString() // For {{date}}
+            };
             
             // Send email using EmailJS
             emailjs.send('service_2yhpvv6', 'template_yf34ymb', templateParams)
