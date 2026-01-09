@@ -7,6 +7,8 @@
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/responsive.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Add this in the head section -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
 </head>
 <body>
     <!-- Navigation -->
@@ -52,12 +54,10 @@
     <section class="contact-section">
         <div class="container">
             <div class="contact-container">
-                <!-- Contact Form -->
+                <!-- Contact Form Section -->
                 <div class="contact-form-section">
                     <h2 class="section-title">Send a Message</h2>
-                    <form class="contact-form" action="https://formspree.io/f/mkogdzeg" method="POST">
-                        <input type="hidden" name="_subject" value="New Contact Form Message">
-                        
+                    <form class="contact-form" id="contactForm">
                         <div class="form-group">
                             <label for="name">Your Name *</label>
                             <input type="text" id="name" name="name" placeholder="Enter your name" required>
@@ -78,7 +78,6 @@
                         </button>
                     </form>
                 </div>
-
                 <!-- Contact Information -->
                 <div class="contact-info-section">
                     <h2 class="section-title">Contact Information</h2>
@@ -198,6 +197,9 @@
             </div>
         </div>
     </footer>
+    <!-- Add these scripts in this order -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
     <script src="js/script.js"></script>
+    <script src="js/contact.js"></script>
 </body>
 </html>
