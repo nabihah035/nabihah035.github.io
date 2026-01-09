@@ -2557,11 +2557,6 @@ main.skills-main {
     display: inline-block;
 }
 
-/* First row: First 3 items */
-.creative-work-card:nth-child(-n+3) {
-    /* These will be in the first row */
-}
-
 /* Second row: Last 2 items side by side */
 .creative-work-card:nth-child(n+4) {
     margin-top: var(--spacing-lg);
