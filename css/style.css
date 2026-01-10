@@ -2184,6 +2184,11 @@ main.skills-main {
     border: 1px solid var(--medium-gray);
 }
 
+.contact-form-section,
+.contact-info-section {
+    box-sizing: border-box;
+}
+
 .section-title {
     color: var(--deep-teal-green);
     font-size: 1.8rem;
