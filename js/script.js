@@ -98,4 +98,34 @@ document.addEventListener('DOMContentLoaded', function() {
         const currentYear = new Date().getFullYear();
         copyrightYear.textContent = copyrightYear.textContent.replace('2026', currentYear);
     }
+
+    // Contact Form (Formspree)
+    const form = document.getElementById("contactForm");
+
+    if (form) {
+        form.addEventListener("submit", async function(e) {
+            e.preventDefault();
+
+            const formData = new FormData(form);
+
+            try {
+                const response = await fetch(form.action, {
+                    method: form.method,
+                    body: formData,
+                    headers: {
+                        'Accept': 'application/json'
+                    }
+                });
+
+                if (response.ok) {
+                    alert("Thank you! Your message has been sent.");
+                    form.reset();
+                } else {
+                    alert("Oops! Something went wrong. Please try again.");
+                }
+            } catch (error) {
+                alert("Network error. Please check your connection.");
+            }
+        });
+    }
 });
