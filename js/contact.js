@@ -22,7 +22,12 @@ document.addEventListener('DOMContentLoaded', function() {
                 return;
             }
             
-            console.log('Form Data:', { name, email, message });
+            // Validate email format
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                showMessage('Please enter a valid email address.', 'error');
+                return;
+            }
             
             // Show loading state
             const submitBtn = contactForm.querySelector('button[type="submit"]');
@@ -30,17 +35,16 @@ document.addEventListener('DOMContentLoaded', function() {
             submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
             submitBtn.disabled = true;
             
-            // Prepare template parameters
+            // CORRECTED: Template parameters must match EmailJS template variables
             const templateParams = {
-                name: name,
-                from_name: name,
-                from_email: email,
-                message: message,
-                reply_to: email,
+                from_name: name,      // Changed from 'name' to 'from_name'
+                from_email: email,    // Changed from 'email' to 'from_email'
+                message: message,     // This stays 'message'
+                reply_to: email,      // This stays 'reply_to'
                 date: new Date().toLocaleString()
             };
             
-            console.log('EmailJS Template Params:', templateParams);
+            console.log('Sending EmailJS with params:', templateParams);
             
             // Send email using EmailJS
             emailjs.send('service_2yhpvv6', 'template_yf34ymb', templateParams)
@@ -51,7 +55,12 @@ document.addEventListener('DOMContentLoaded', function() {
                 })
                 .catch(function(error) {
                     console.error('EmailJS Error Details:', error);
-                    showMessage('Failed to send message. Please try again or email me directly.', 'error');
+                    // More detailed error message
+                    if (error.text) {
+                        showMessage(`Failed to send: ${error.text}`, 'error');
+                    } else {
+                        showMessage('Failed to send message. Please try again or email me directly.', 'error');
+                    }
                 })
                 .finally(function() {
                     // Reset button state
@@ -61,3 +70,35 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 });
+
+// Message display function (add this if not already in script.js)
+function showMessage(message, type) {
+    // Remove existing messages
+    const existingMsg = document.querySelector('.form-message');
+    if (existingMsg) {
+        existingMsg.remove();
+    }
+    
+    // Create message element
+    const messageDiv = document.createElement('div');
+    messageDiv.className = `form-message ${type}`;
+    messageDiv.innerHTML = `
+        <i class="fas ${type === 'success' ? 'fa-check-circle' : 'fa-exclamation-circle'}"></i>
+        <span>${message}</span>
+    `;
+    
+    // Insert after the form or at the top
+    const form = document.querySelector('.contact-form');
+    if (form) {
+        form.insertBefore(messageDiv, form.firstChild);
+    }
+    
+    // Auto remove after 5 seconds for success messages
+    if (type === 'success') {
+        setTimeout(() => {
+            if (messageDiv.parentNode) {
+                messageDiv.remove();
+            }
+        }, 5000);
+    }
+}
